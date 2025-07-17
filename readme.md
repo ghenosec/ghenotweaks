@@ -3,7 +3,9 @@
 Uma ferramenta simples em Python para aplicar otimizações de desempenho e jogos no Windows com um clique.
 Criei com o intuito de, após o computador formatado, em poucos segundos terá seu pc pré otimizado.
 
-
+<p align="center">
+ <img src="https://github.com/ghenosec/taskOptimizer/blob/main/taskoptimizer.png" alt="Logo" height=400></a>
+</p>
 
 ## Funcionalidades
 
