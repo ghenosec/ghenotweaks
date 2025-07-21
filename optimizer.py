@@ -52,9 +52,7 @@ def clean_temp_files():
         os.path.join(os.environ.get('SystemRoot', 'C:\\Windows'), 'Prefetch')
     ]
     
-    deleted_files = 0
-    deleted_folders = 0
-    errors = 0
+    deleted_files, deleted_folders, errors = 0, 0, 0
 
     for path in paths_to_clean:
         if not path or not os.path.exists(path):
@@ -78,35 +76,39 @@ def clean_temp_files():
         messagebox.showinfo("Sucesso", f"Limpeza de arquivos temporários concluída!\n\nArquivos deletados: {deleted_files}\nPastas deletadas: {deleted_folders}")
 
 def add_ultimate_power_plan():
+    ULTIMATE_PERFORMANCE_GUID_TEMPLATE = "e9a42b02-d5df-448d-aa00-03f14749eb61"
     try:
-        duplicate_command = "powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61"
-        process = subprocess.run(
-            duplicate_command,
-            shell=True,
-            capture_output=True,
-            text=True,
-            check=True,
-            encoding="cp850",
-            creationflags=subprocess.CREATE_NO_WINDOW,
-        )
-        output_line = process.stdout.strip()
-        guid = output_line.split(":")[1].strip().split(" ")[0]
-        if not guid:
-            raise ValueError("Não foi possível extrair o GUID do novo plano de energia.")
+        list_command = "powercfg /list"
+        process = subprocess.run(list_command, shell=True, capture_output=True, text=True, encoding="cp850", creationflags=subprocess.CREATE_NO_WINDOW)
         
-        activate_command = f"powercfg /setactive {guid}"
-        subprocess.run(
-            activate_command,
-            shell=True,
-            check=True,
-            creationflags=subprocess.CREATE_NO_WINDOW,
-        )
-        messagebox.showinfo(
-            "Sucesso",
-            "Plano de energia 'Desempenho Máximo' foi adicionado e ATIVADO com sucesso!",
-        )
+        guid_to_activate = None
+        plan_name_pt = "desempenho máximo"
+        plan_name_en = "ultimate performance"
+
+        for line in process.stdout.lower().splitlines():
+            if plan_name_pt in line or plan_name_en in line:
+                guid_to_activate = line.split(":")[1].strip().split(" ")[0]
+                break
+        
+        if not guid_to_activate:
+            duplicate_command = f"powercfg -duplicatescheme {ULTIMATE_PERFORMANCE_GUID_TEMPLATE}"
+            create_process = subprocess.run(
+                duplicate_command, shell=True, capture_output=True, text=True, check=True, encoding="cp850",
+                creationflags=subprocess.CREATE_NO_WINDOW
+            )
+            output_line = create_process.stdout.strip()
+            guid_to_activate = output_line.split(":")[1].strip().split(" ")[0]
+
+        if guid_to_activate:
+            activate_command = f"powercfg /setactive {guid_to_activate}"
+            subprocess.run(activate_command, shell=True, check=True, creationflags=subprocess.CREATE_NO_WINDOW)
+            messagebox.showinfo("Sucesso", "Plano de energia 'Desempenho Máximo' foi ATIVADO com sucesso!")
+        else:
+            raise ValueError("Não foi possível encontrar ou criar o plano de energia.")
+
     except subprocess.CalledProcessError as e:
-        messagebox.showerror("Erro", f"Falha ao executar o comando powercfg:\n{e.stderr}")
+        error_text = (e.stderr or e.stdout).decode("cp850", errors="ignore")
+        messagebox.showerror("Erro", f"Falha ao executar o comando powercfg.\n\nSeu sistema pode não suportar o plano 'Desempenho Máximo'.\n\nDetalhes: {error_text}")
     except (IndexError, ValueError) as e:
         messagebox.showerror("Erro", f"Falha ao processar a saída do comando:\n{e}")
     except Exception as e:
@@ -225,7 +227,7 @@ def optimize_input_lag():
 def create_gui():
     root = tk.Tk()
     root.title("Task Optimizer")
-    root.geometry("450x650") # Aumentei a altura para o novo botão
+    root.geometry("450x650")
     root.resizable(False, False)
 
     style = ttk.Style()
