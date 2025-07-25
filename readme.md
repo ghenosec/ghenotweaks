@@ -18,7 +18,7 @@ Criei com o intuito de, após o computador formatado, em poucos segundos terá s
 
 ---
 
-## Como Usar (Para Usuários)
+## Como Usar
 
 1.  Vá para a [**página de Releases**](https://github.com/ghenosec/TaskOptimizer/releases) do projeto.
 2.  Na seção "Assets" do lançamento mais recente, baixe o arquivo `Task Optimizer.exe`.
@@ -28,7 +28,7 @@ Criei com o intuito de, após o computador formatado, em poucos segundos terá s
 
 ---
 
-## Como Compilar a Partir do Código-Fonte (Para Desenvolvedores)
+## Como Compilar a Partir do Código-Fonte
 
 Se preferir compilar o executável você mesmo:
 
