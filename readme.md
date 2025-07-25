@@ -1,4 +1,4 @@
-# Task Optimizer
+# Gheno Tweaks
 
 Uma ferramenta simples em Python para aplicar otimizações de desempenho e jogos no Windows com um clique.
 Criei com o intuito de, após o computador formatado, em poucos segundos terá seu pc pré otimizado.
@@ -20,8 +20,8 @@ Criei com o intuito de, após o computador formatado, em poucos segundos terá s
 
 ## Como Usar (Para Usuários)
 
-1.  Vá para a [**página de Releases**](https://github.com/ghenosec/TaskOptimizer/releases) do projeto.
-2.  Na seção "Assets" do lançamento mais recente, baixe o arquivo `Task Optimizer.exe`.
+1.  Vá para a [**página de Releases**](https://github.com/ghenosec/GhenoTweaks/releases) do projeto.
+2.  Na seção "Assets" do lançamento mais recente, baixe o arquivo `Gheno Tweaks.exe`.
 3.  Execute o arquivo. O Windows pedirá permissão de Administrador, o que é necessário para que as otimizações funcionem.
 
 **AVISO:** Este programa modifica o Registro do Windows. Use por sua conta e risco. É altamente recomendado usar a função "Criar Ponto de Restauração" antes de aplicar outras otimizações.
@@ -40,6 +40,6 @@ Se preferir compilar o executável você mesmo:
     ```
 4.  Execute o comando para compilar:
     ```bash
-    pyinstaller --onefile --windowed --name "Task Optimizer" --icon="icone.ico" optimizer.py
+    pyinstaller --onefile --windowed --name "Gheno Tweaks" --icon="icone.ico" optimizer.py
     ```
 5.  O executável estará na pasta `dist/`.
