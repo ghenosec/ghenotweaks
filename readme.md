@@ -1,6 +1,6 @@
 # Gheno Tweaks - Windows
 
-**Versão para [LINUX](https://github.com/ghenosec/ghenotweaks-ubuntu/)
+**Versão para [LINUX](https://github.com/ghenosec/ghenotweaks-ubuntu/)**
 
 Uma ferramenta simples em Python para aplicar otimizações de desempenho e jogos no Windows com um clique.
 Criei com o intuito de, após o computador formatado, em poucos segundos terá seu pc pré otimizado.
